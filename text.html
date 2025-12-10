@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>اندرتيل يلو</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ===== General Styles ===== */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 1.2em;
+  text-align: center;
+  overflow-x: hidden;
+  width: 100vw;
+  color: #ffffff;
+}
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: url('https://upload.wikimedia.org/wikipedia/en/thumb/9/93/Undertale_Yellow.png/250px-Undertale_Yellow.png') no-repeat center center fixed;
+  background-size: cover;
+  z-index: -2;
+}
+body::after {
+  content:"";
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  background: rgba(0,0,0,0.55);
+  z-index:-1;
+}
+
+/* ===== Loader Screen ===== */
+#loader {
+  position: fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  background:#000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  z-index:9999;
+  color:#FFD700;
+  font-family: 'Press Start 2P', cursive;
+  font-size:1.5em;
+}
+#loader span {
+  margin-top:15px;
+  animation: blink 1s infinite;
+}
+@keyframes blink { 0%,50%,100%{opacity:1;}25%,75%{opacity:0;} }
+
+/* ===== Titles and Text ===== */
+h1 {
+  font-family: 'Press Start 2P', cursive;
+  color: #FFD700;
+  font-size: 2.6em;
+  margin-top: 20px;
+  text-shadow: 0 0 15px #FFD700,0 0 30px #FFEA00,0 0 40px #FF00FF;
+}
+.intro-text {
+  width: 95%;
+  max-width: none;
+  margin:20px auto;
+  font-size:1.3em;
+  line-height:1.8em;
+  color:#FFD700;
+  font-weight:bold;
+  text-shadow:0 0 8px #FFD700,0 0 15px #FF00FF,0 0 25px #00FFFF;
+}
+.logo-container img {
+  width: 100%;
+  max-width: 300px;
+  height:auto;
+  border-radius:12px;
+  box-shadow:0 0 25px #FF00FF,0 0 50px #00FFFF;
+}
+
+/* ===== Table ===== */
+.section-title { font-size:1.3em; margin:30px 0 10px 0; color:#FF00FF; font-weight:bold; text-shadow:0 0 10px #FF00FF,0 0 20px #00FFFF; }
+table {
+  width: 100%;
+  max-width: none;
+  margin:20px 0;
+  border-collapse: collapse;
+  background-color: rgba(20,20,20,0.95);
+  border-radius:12px;
+  overflow:hidden;
+  font-size:1.1em;
+  transition: all 0.3s ease;
+}
+th, td { padding:15px; border:1px solid #00FFFF; text-align:center; }
+th {
+  background:linear-gradient(90deg,#FF00FF,#00FFFF);
+  color:#000;
+  font-weight:bold;
+  text-shadow:0 0 8px #FF00FF,0 0 15px #00FFFF;
+}
+td { color:#00FFFF; text-shadow:0 0 5px #00FFFF,0 0 10px #FF00FF; }
+table tr:hover { background-color: rgba(255,0,255,0.3); box-shadow:0 0 15px #FF00FF,0 0 30px #00FFFF inset; transition: all 0.3s ease; }
+table tr:active { background-color: rgba(255,255,0,0.5); }
+
+/* ===== Buttons ===== */
+a.button {
+  display:inline-block;
+  margin:10px 8px;
+  padding:12px 18px;
+  font-weight:bold;
+  text-decoration:none;
+  font-size:1em;
+  border-radius:12px;
+  color:#ffffff;
+  background:linear-gradient(90deg,#FF00FF,#00FFFF);
+  box-shadow:0 0 25px #FF00FF,0 0 50px #00FFFF,0 0 75px #FFD700;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, text-shadow 0.3s ease;
+  text-shadow:0 0 5px #FFD700,0 0 10px #FF00FF;
+}
+a.button:hover {
+  transform: scale(1.15);
+  box-shadow:0 0 35px #FF00FF,0 0 70px #00FFFF,0 0 100px #FFD700;
+  color:#000000;
+}
+
+/* ===== Notes ===== */
+.report-text {
+  margin:15px auto;
+  font-size:1.1em;
+  color:#00FFFF;
+  text-shadow:0 0 8px #00FFFF,0 0 15px #FF00FF;
+}
+
+/* ===== Small Stars ===== */
+.star {
+  position: absolute;
+  width: 2px; height:2px;
+  background: #FFD700;
+  border-radius:50%;
+  opacity:0.8;
+}
+
+/* ===== Footer ===== */
+.footer { margin:40px 0; font-size:1.3em; color:#FFD700; text-shadow:0 0 15px #FFD700,0 0 30px #FFEA00; font-weight:bold; }
+
+/* ===== Media Queries ===== */
+@media(max-width:768px){
+h1{font-size:1.9em;}
+.logo-container img{width:180px;}
+a.button{padding:12px 14px;font-size:1em;display:block;margin:10px auto;}
+table{font-size:0.95em;width:100%;}
+.intro-text{font-size:1.2em;padding:0 10px;}
+.report-text{font-size:1em;}
+}
+@media(max-width:480px){
+h1{font-size:1.6em;}
+.logo-container img{width:140px;}
+a.button{padding:10px 12px;font-size:0.9em;display:block;margin:8px auto;}
+table{font-size:0.8em;width:100%;}
+.intro-text{font-size:1em;padding:0 5px;}
+.report-text{font-size:0.9em;}
+}
+</style>
+</head>
+<body>
+
+<!-- Loader Screen -->
+<div id="loader">
+  جاري تحميل اندرتيل يلو...
+  <span>⏳</span>
+</div>
+
+<h1>اندرتيل يلو</h1>
+
+<div class="intro-text">
+اليوم تم بحمد الله الانتهاء من تعريب اللعبة المشهورة اندرتيل يلو، والتي لاقت رواجًا واسعًا في مجتمع <br>
+اندرتال<br><br>
+جئنا بهذا التعريب لنمنح كل لاعب عربي الفرصة<br>
+لتجربة الجوهرة الصفراء بلغته الأم.<br><br>
+تم العمل على التعريب من قبل مجموعة من الأفراد اجتمعوا على حبهم للعبة اندرتيل يلو<br>
+ورغبتهم في تقديمها للاعب العربي ليستمتع بها
+</div>
+
+<div class="logo-container">
+<img src="https://upload.wikimedia.org/wikipedia/en/thumb/9/93/Undertale_Yellow.png/250px-Undertale_Yellow.png" alt="Undertale Yellow">
+</div>
+
+<div class="section-title">تم التعريب بواسطة:</div>
+
+<table>
+<tr><th>الاسم</th><th>عدد الأسطر المترجمة</th></tr>
+<tr><td>عبود (zhahaha15)</td><td>4600</td></tr>
+<tr><td>shaodoxr2</td><td>4000</td></tr>
+<tr><td>Rayane907</td><td>3000</td></tr>
+<tr><td>riitz11</td><td>2700</td></tr>
+<tr><td>amine_gd123</td><td>500</td></tr>
+<tr><td>0vvm</td><td>500</td></tr>
+<tr><td>.la_9</td><td>500</td></tr>
+<tr><td>billcipherx</td><td>500</td></tr>
+</table>
+
+<div class="report-text">
+إذا لاحظت أخطاء، انشرها في هذا السيرفر:
+<a class="button" href="https://discord.gg/DjfmqhUtnq" target="_blank">سيرفر الديسكورد</a>
+</div>
+
+<div>
+<a class="button" href="https://www.mediafire.com/file/xgtzhd5dcgnqaiw/%25D8%25AA%25D8%25B9%25D8%25B1%25D9%258A%25D8%25A8_%25D8%25A7%25D9%2586%25D8%25AF%25D8%25B1%25D8%25AA%25D9%258A%25D9%2584_%25D9%258A%25D9%2584%25D9%2588__%25D8%25A8%25D9%258A_%25D8%25B3%25D9%258A__1.0.rar/file" target="_blank">نسخة البيسي</a>
+<a class="button" href="https://www.mediafire.com/file/0rl4tod72ecnojl/%25D8%25AA%25D8%25B9%25D8%25B1%25D9%258A%25D8%25A8_%25D8%25A7%25D9%2586%25D8%25AF%25D8%25B1%25D8%25AA%25D9%258A%25D9%2584_%25D9%258A%25D9%2584%25D9%2588__%25D8%25A7%25D9%2584%25D8%25AC%25D9%2588%25D8%25A7%25D9%2584.zip/file" target="_blank">نسخة الجوال</a>
+<a class="button" href="https://www.mediafire.com/file/c29xwyqbgmtgzgk/%25D8%25AA%25D8%25B9%25D8%25B1%25D9%258A%25D8%25A8_%25D8%25A7%25D9%2586%25D8%25AF%25D8%25B1%25D8%25AA%25D9%258A%25D9%2584_%25D9%258A%25D9%2584%25D9%2588__%25D8%25A7%25D9%2584%25D8%25AC%25D9%2588%25D8%25A7%25D9%2584_%25D8%25A8%25D8%25AF%25D9%2588%25D9%2586_%25D9%2585%25D9%2588%25D8%25B3%25D9%258A%25D9%2582%25D9%2589.zip/file" target="_blank">نسخة الجوال بدون موسيقى</a>
+<a class="button" href="https://www.mediafire.com/file/g2bh53p1ppmje0z/%25D8%25AA%25D8%25B9%25D8%25B1%25D9%258A%25D8%25A8_%25D8%25A7%25D9%2586%25D8%25AF%25D8%25B1%25D8%25AA%25D9%258A%25D9%2584_%25D9%258A%25D9%2584%25D9%2588__%25D8%25A7%25D9%2584%25D8%25AC%25D9%2588%25D8%25A7%25D9%2584_32_%25D8%25A8%25D8%25AB.zip/file" target="_blank">نسخة الجوال 32 بث</a>
+<a class="button" href="https://www.mediafire.com/file/3so56i91jftsknz/%25D8%25AA%25D8%25B9%25D8%25B1%25D9%258A%25D8%25A8_%25D8%25A7%25D9%2586%25D8%25AF%25D8%25B1%25D8%25AA%25D9%258A%25D9%2584_%25D9%258A%25D9%2584%25D9%2588__%25D8%25A7%25D9%2584%25D8%25AC%25D9%2588%25D8%25A7%25D9%2584_32_%25D8%25A8%25D8%25AB_%25D8%25A8%25D8%25AF%25D9%2588%25D9%2586_%25D9%2585%25D9%2588%25D8%25B3%25D9%258A%25D9%2582%25D9%2589.zip/file" target="_blank">نسخة الجوال 32 بث بدون موسيقى</a>
+</div>
+
+<div class="footer">إن شاء الله تستمتعون بالتعريب</div>
+
+<!-- ===== Audio ===== -->
+<audio id="clickSound" src="https://freesound.org/data/previews/341/341695_6247052-lq.mp3"></audio>
+
+<script>
+// ===== Loader =====
+window.addEventListener("load", ()=>{
+  document.getElementById("loader").style.display="none";
+});
+
+// ===== Button Click Sound =====
+document.querySelectorAll("a.button").forEach(btn=>{
+  btn.addEventListener("click", ()=>{ document.getElementById("clickSound").play(); });
+});
+
+// ===== Small Stars =====
+const starCount=50;
+for(let i=0;i<starCount;i++){
+  let star=document.createElement("div");
+  star.classList.add("star");
+  star.style.top=Math.random()*window.innerHeight+"px";
+  star.style.left=Math.random()*window.innerWidth+"px";
+  document.body.appendChild(star);
+}
+
+// ===== Parallax Mouse Effect =====
+document.addEventListener("mousemove", e=>{
+  let x=e.clientX/window.innerWidth*10;
+  let y=e.clientY/window.innerHeight*10;
+  document.body.style.backgroundPosition=`calc(50% + ${x}px) calc(50% + ${y}px)`;
+});
+</script>
+</body>
+</html>
