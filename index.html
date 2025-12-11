@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8" />
+<title>اندرتيل يلو</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+html, body {
+  margin:0; padding:0;
+  font-family: 'Roboto Mono', monospace;
+  font-size:20px; min-height:100%;
+  display:flex; flex-direction:column; color:#FFD700;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background: url('https://upload.wikimedia.org/wikipedia/en/9/93/Undertale_Yellow.png') no-repeat center center fixed;
+  background-size: cover;
+  filter: brightness(0.45) saturate(1.2);
+  z-index: -2;
+}
+
+header {
+  background: linear-gradient(90deg,#FFD700,#FFA500);
+  padding:18px; text-align:center;
+  text-shadow:0 0 10px #FFD700,0 0 20px #FFA500;
+}
+header h1 { font-family:'Press Start 2P', cursive; font-size:2.8em; margin:0; color:#000; }
+
+nav {
+  background:#111; display:flex; justify-content:center; flex-wrap:wrap;
+  gap:8px; padding:10px 8px;
+}
+nav button {
+  color:#FFD700;
+  background:none;
+  border:1px solid rgba(255,215,0,0.12);
+  padding:10px 18px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:700;
+  transition:0.25s all ease;
+  font-size:1.05em;
+}
+
+/* تأثير المرور بالماوس */
+nav button:hover {
+  background: rgba(255,215,0,0.12);
+  transform: scale(1.08);
+  box-shadow: 0 0 15px #FFD700, 0 0 25px #FFA500;
+}
+
+/* تأثير الضغط واللمس */
+nav button:active {
+  transform: scale(0.95);
+  box-shadow: 0 0 5px #FFD700;
+}
+
+.main { flex:1; max-width:1200px; margin:28px auto; padding:0 18px; width:100%; box-sizing:border-box; background: rgba(0,0,0,0.65); border-radius:12px; }
+
+.logo { text-align:center; margin-bottom:18px; }
+.logo img { width:320px; max-width:80%; border-radius:12px; box-shadow:0 0 25px #FFD700; }
+
+.content-section { display:none; margin-top:18px; text-align:center; line-height:1.5em; font-size:1.15em; }
+.content-section.active { display:block; }
+
+.section-title { font-size:1.5em; color:#FFA500; margin:16px 0; font-weight:800; text-shadow:0 0 8px #FFD700; }
+
+.table-wrap { overflow-x:auto; margin-top:12px; background: rgba(0,0,0,0.65); border-radius:10px; }
+.table-main {
+  width:100%; border-collapse:collapse; table-layout:fixed;
+  box-shadow: 0 0 18px rgba(255,165,0,0.06);
+}
+.table-main thead th {
+  padding:14px 12px; text-align:center; font-size:1.05em;
+  background: linear-gradient(90deg,#FFD700,#FFA500); color:#000; font-weight:800;
+  border-bottom:1px solid rgba(0,0,0,0.15);
+}
+.table-main tbody td {
+  padding:14px 12px; color:#FFD700; vertical-align:middle; text-align:center;
+  border-bottom:1px solid rgba(255,165,0,0.06);
+  word-wrap:break-word;
+}
+.table-main tbody tr:hover { background: rgba(255,215,0,0.06); }
+
+.update-box {
+  margin:18px auto; max-width:900px; text-align:right;
+  background: rgba(255,215,0,0.06); border:1px solid rgba(255,165,0,0.15);
+  padding:12px 16px; border-radius:10px; color:#FFFFE0;
+}
+.update-box h2 { margin:0 0 6px 0; color:#FFF8DC; font-size:1.15em; }
+.update-box p { margin:6px 0; color:#FFF8DC; }
+
+a.link-button {
+  display:inline-block; padding:10px 14px; border-radius:8px;
+  background: linear-gradient(90deg,#FFD700,#FFA500); color:#000; font-weight:700;
+  text-decoration:none; box-shadow:0 0 18px rgba(255,215,0,0.12);
+  transition:0.25s all ease;
+}
+a.link-button:hover {
+  transform: scale(1.06);
+  box-shadow:0 0 25px #FFD700,0 0 35px #FFA500;
+}
+
+footer {
+  background: rgba(0,0,0,0.65); color:#FFD700; text-align:center; padding:16px;
+  font-size:1.05em; margin-top:24px; border-radius:10px;
+}
+
+@media (max-width:768px){
+  header h1{font-size:2em;}
+  .logo img{width:220px;}
+  nav button{padding:10px 14px; font-size:1em;}
+  .table-main thead th, .table-main tbody td { padding:12px 8px; font-size:1em; }
+}
+@media (max-width:480px){
+  header h1{font-size:1.6em;}
+  .logo img{width:160px;}
+  .main{padding:0 12px;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>اندرتيل يلو</h1>
+</header>
+
+<nav>
+  <button onclick="showSection('report')">الإبلاغ عن الأخطاء</button>
+  <button onclick="showSection('downloads')">تحميل التعريب</button>
+  <button onclick="showSection('team')">المسؤولون عن التعريب</button>
+  <button onclick="showSection('intro')">نبذة عن التعريب</button>
+</nav>
+
+<main class="main">
+
+  <section id="intro" class="content-section">
+    <div class="logo">
+      <img src="https://upload.wikimedia.org/wikipedia/en/9/93/Undertale_Yellow.png" alt="Undertale Yellow">
+    </div>
+    <div class="section-title">نبذة عن التعريب</div>
+    <p>بحمد الله تم الانتهاء من تعريب اللعبة المشهورة اندرتيل يلو، والتي لاقت رواجًا واسعًا في مجتمع اندرتال.<br>
+    جئنا بهذا التعريب لنمنح كل لاعب عربي الفرصة لتجربة الجوهرة الصفراء بلغته الأم.<br>
+    تم العمل على التعريب من قبل مجموعة من الأفراد اجتمعوا على حبهم للعبة اندرتيل يلو ورغبتهم في تقديمها للاعب العربي ليستمتع بها.</p>
+  </section>
+
+  <section id="team" class="content-section">
+    <div class="section-title">المسؤولون عن التعريب</div>
+    <div class="table-wrap">
+      <table class="table-main">
+        <thead>
+          <tr>
+            <th style="width:20%;">الدور</th>
+            <th style="width:60%;">الأسماء / التفاصيل</th>
+            <th style="width:20%;">ملاحظات</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>مترجمون</td>
+            <td style="text-align:right;">
+              عبود (zhahaha15) — 4600 سطر<br>
+              shaodoxr2 — 4000 سطر<br>
+              Rayane907 — 3000 سطر<br>
+              riitz11 — 2700 سطر<br>
+              amine_gd123 — 500 سطر<br>
+              0vvm — 500 سطر<br>
+              .la_9 — 500 سطر<br>
+              billcipherx — 500 سطر<br>
+              who — 500 سطر
+            </td>
+            <td>تقسيم الأسطر حسب المصدر</td>
+          </tr>
+          <tr>
+            <td>مبرمجون</td>
+            <td style="text-align:right;">shaodoxr2 — (مع مساعدة تركي: riitz11)</td>
+            <td>ديناميكية تشغيل/تجربة</td>
+          </tr>
+          <tr>
+            <td>مدققون</td>
+            <td style="text-align:right;">riitz11 — تدقيق تقريبًا 10000 نص</td>
+            <td>مدقق رئيسي</td>
+          </tr>
+          <tr>
+            <td>مراجعون</td>
+            <td style="text-align:right;">shaodoxr2, Rayane907, riitz11, whatever_lz, muslim_mx</td>
+            <td>مراجعات نهائية</td>
+          </tr>
+          <tr>
+            <td>مصممو الصور</td>
+            <td style="text-align:right;">
+              فارس — 84 صورة<br>
+              سنايبر — 14 صورة<br>
+              ركان — 1 صورة<br>
+              "انا" — 4 صور<br>
+              8.1n — صورتين
+            </td>
+            <td>أعمال فنية</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="downloads" class="content-section">
+    <div class="section-title">تحميل التعريب</div>
+    <div class="table-wrap">
+      <table class="table-main">
+        <thead>
+          <tr>
+            <th style="width:34%;">اسم الملف</th>
+            <th style="width:40%;">الوصف</th>
+            <th style="width:13%;">الحجم</th>
+            <th style="width:13%;">رابط التحميل</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align:right;">نسخة البيسي</td>
+            <td style="text-align:right;">نسخة للكمبيوتر (PC)</td>
+            <td>97 MB</td>
+            <td><a class="link-button" href="https://www.mediafire.com/file/xgtzhd5dcgnqaiw/%25D8%25AA%25D8%25B9%25D8%25B1%25D9%258A%25D8%25A8_%25D8%25A7%25D9%2586%25D8%25AF%25D8%25B1%25D8%25AA%25D9%258A%25D9%2584_%25D9%258A%25D9%2584%25D9%2588__%25D8%25A8%25D9%258A_%25D8%25B3%25D9%258A__1.0.rar/file" target="_blank">تحميل</a></td>
+          </tr>
+          <tr>
+            <td style="text-align:right;">نسخة الجوال</td>
+            <td style="text-align:right;">نسخة الجوال</td>
+            <td>250 MB</td>
+            <td><a class="link-button" href="https://www.mediafire.com/file/0rl4tod72ecnojl/%25D8%25AA%25D8%25B9%25D8%25B1%25D9%258A%25D8%25A8_%25D8%25A7%25D9%2586%25D8%25AF%25D8%25B1%25D8%25AA%25D9%258A%25D9%2584_%25D9%258A%25D9%2584%25D9%2588__%25D8%25A7%25D9%2584%25D8%25AC%25D9%2588%25D8%25A7%25D9%2584.zip/file" target="_blank">تحميل</a></td>
+          </tr>
+          <tr>
+            <td style="text-align:right;">نسخة الجوال بدون موسيقى</td>
+            <td style="text-align:right;">نسخة الجوال بدون موسيقى</td>
+            <td>131 MB</td>
+            <td><a class="link-button" href="https://www.mediafire.com/file/c29xwyqbgmtgzgk/%25D8%25AA%25D8%25B9%25D8%25B1%25D9%258A%25D8%25A8_%25D8%25A7%25D9%2586%25D8%25AF%25D8%25B1%25D8%25AA%25D9%258A%25D9%2584_%25D9%258A%25D9%2584%25D9%2588__%25D8%25A7%25D9%2584%25D8%25AC%25D9%2588%25D8%25A7%25D9%2584_%25D8%25A8%25D8%25AF%25D9%2588%25D9%2586_%25D9%2585%25D9%2588%25D8%25B3%25D9%258A%25D9%2582%25D9%2589.zip/file" target="_blank">تحميل</a></td>
+          </tr>
+          <tr>
+            <td style="text-align:right;">نسخة الجوال 32 بث</td>
+            <td style="text-align:right;">نسخة 32 بث</td>
+            <td>250 MB</td>
+            <td><a class="link-button" href="https://www.mediafire.com/file/g2bh53p1ppmje0z/%25D8%25AA%25D8%25B9%25D8%25B1%25D9%258A%25D8%25A8_%25D8%25A7%25D9%2586%25D8%25AF%25D8%25B1%25D8%25AA%25D9%258A%25D9%2584_%25D9%258A%25D9%2584%25D9%2588__%25D8%25A7%25D9%2584%25D8%25AC%25D9%2588%25D8%25A7%25D9%2584_32_%25D8%25A8%25D8%25AB.zip/file" target="_blank">تحميل</a></td>
+          </tr>
+          <tr>
+            <td style="text-align:right;">نسخة الجوال 32 بث بدون موسيقى</td>
+            <td style="text-align:right;">نسخة 32 بث بدون موسيقى</td>
+            <td>131 MB</td>
+            <td><a class="link-button" href="https://www.mediafire.com/file/3so56i91jftsknz/%25D8%25AA%25D8%25B9%25D8%25B1%25D9%258A%25D8%25A8_%25D8%25A7%25D9%2586%25D8%25AF%25D8%25B1%25D8%25AA%25D9%258A%25D9%2584_%25D9%258A%25D9%2584%25D9%2588__%25D8%25A7%25D9%2584%25D8%25AC%25D9%2588%25D8%25A7%25D9%2584_32_%25D8%25A8%25D8%25AB_%25D8%25A8%25D8%25AF%25D9%2588%25D9%2586_%25D9%2585%25D9%2588%25D8%25B3%25D9%258A%25D9%2582%25D9%2589.zip/file" target="_blank">تحميل</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="update-box">
+      <h2>آخر تحديث (v1.2)</h2>
+      <p>• تم إصلاح بعض الأخطاء في الحوارات والمواجهات (بما في ذلك مشاكل خروج اللعبة في مناطق معينة).</p>
+      <p>• تاريخ الإعلان: 26/09/2025</p>
+    </div>
+  </section>
+
+  <section id="report" class="content-section">
+    <div class="section-title">الإبلاغ عن الأخطاء</div>
+    <p>إذا لاحظت أخطاء، انشرها في هذا السيرفر:</p>
+    <p><a class="link-button" href="https://discord.gg/DjfmqhUtnq" target="_blank">سيرفر الديسكورد</a></p>
+  </section>
+
+</main>
+
+<footer>إن شاء الله تستمتعون بالتعريب</footer>
+
+<script>
+function showSection(id){
+  document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+</script>
+</body>
+</html>
