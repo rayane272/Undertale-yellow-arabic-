@@ -1,281 +1,352 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8" />
-<title>اندرتيل يلو</title>
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
-<style>
-html, body {
-  margin:0; padding:0;
-  font-family: 'Roboto Mono', monospace;
-  font-size:20px; min-height:100%;
-  display:flex; flex-direction:column; color:#FFD700;
-  background: rgba(0,0,0,0.7);
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اندرتيل الصفراء المعربة - v1.3 (بطاقات المساهمين)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-yellow: #ffeb3b;
+            --secondary-orange: #ff9800;
+            --bg-dark: #121212;
+            --bg-card: #1e1e1e;
+            --text-light: #ffffff;
+            --transition-speed: 0.3s;
+            --fast-transition: 0.2s ease-out;
+        }
 
-body::before {
-  content: "";
-  position: fixed;
-  top:0; left:0;
-  width:100%; height:100%;
-  background: url('https://upload.wikimedia.org/wikipedia/en/9/93/Undertale_Yellow.png') no-repeat center center fixed;
-  background-size: cover;
-  filter: brightness(0.45) saturate(1.2);
-  z-index: -2;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none; 
+        }
 
-header {
-  background: linear-gradient(90deg,#FFD700,#FFA500);
-  padding:18px; text-align:center;
-  text-shadow:0 0 10px #FFD700,0 0 20px #FFA500;
-}
-header h1 { font-family:'Press Start 2P', cursive; font-size:2.8em; margin:0; color:#000; }
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            overflow-x: hidden;
+            scrollbar-color: var(--primary-yellow) var(--bg-dark); 
+            scroll-behavior: smooth; 
+        }
 
-nav {
-  background:#111; display:flex; justify-content:center; flex-wrap:wrap;
-  gap:8px; padding:10px 8px;
-}
-nav button {
-  color:#FFD700;
-  background:none;
-  border:1px solid rgba(255,215,0,0.12);
-  padding:10px 18px;
-  border-radius:8px;
-  cursor:pointer;
-  font-weight:700;
-  transition:0.25s all ease;
-  font-size:1.05em;
-}
+        body::-webkit-scrollbar { width: 8px; }
+        body::-webkit-scrollbar-track { background: var(--bg-dark); }
+        body::-webkit-scrollbar-thumb { background-color: var(--primary-yellow); border-radius: 20px; border: 2px solid var(--bg-dark); }
 
-/* تأثير المرور بالماوس */
-nav button:hover {
-  background: rgba(255,215,0,0.12);
-  transform: scale(1.08);
-  box-shadow: 0 0 15px #FFD700, 0 0 25px #FFA500;
-}
+        header, .btn-pulse, .cursor, .member-card, .download-buttons a { will-change: transform, opacity, box-shadow; }
 
-/* تأثير الضغط واللمس */
-nav button:active {
-  transform: scale(0.95);
-  box-shadow: 0 0 5px #FFD700;
-}
+        /* --- Global & Reusable Styles --- */
+        section { 
+            padding: 60px 8%; 
+        }
+        
+        .section-title { 
+            text-align: center; 
+            color: var(--primary-yellow); 
+            margin-bottom: 40px; 
+            font-size: 1.8rem; 
+            font-weight: 900; 
+            animation: flicker-soft 5s infinite alternate; 
+        }
+        @keyframes flicker-soft {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.9; text-shadow: 0 0 5px rgba(255, 235, 59, 0.5); }
+        }
 
-.main { flex:1; max-width:1200px; margin:28px auto; padding:0 18px; width:100%; box-sizing:border-box; background: rgba(0,0,0,0.65); border-radius:12px; }
+        /* --- Cursor Customization (مؤشر القلب) --- */
+        .cursor { 
+            width: 18px; height: 18px; background: var(--primary-yellow); position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%) rotate(45deg); box-shadow: 0 0 8px var(--primary-yellow); transition: transform 0.15s ease-out, width 0.2s, height 0.2s; mix-blend-mode: normal; border-radius: 2px;
+        }
+        .cursor.hovered { 
+            width: 28px; height: 28px; background: var(--primary-yellow); box-shadow: 0 0 18px var(--primary-yellow), 0 0 5px #fff; transform: translate(-50%, -50%) rotate(45deg) scale(1.1); 
+        }
+        
+        /* --- Header & Navigation --- */
+        header {
+            background: rgba(10, 10, 10, 0.9); padding: 12px 5%; position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 2px solid var(--primary-yellow); display: flex; justify-content: space-between; align-items: center; backdrop-filter: blur(5px);
+        }
+        .logo { font-weight: 900; color: var(--primary-yellow); font-size: 1.3rem; text-shadow: 0 0 5px rgba(255, 235, 59, 0.5); }
+        nav ul { display: flex; list-style: none; gap: 25px; }
+        nav a { color: #fff; text-decoration: none; font-weight: 700; font-size: 1rem; position: relative; transition: color var(--fast-transition); }
+        nav a::after { content: ''; position: absolute; width: 0; height: 3px; bottom: -8px; right: 0; background: var(--primary-yellow); transition: width var(--fast-transition); border-radius: 2px; }
+        nav a:hover { color: var(--primary-yellow); text-shadow: 0 0 8px rgba(255, 235, 59, 0.7); }
+        nav a:hover::after { width: 100%; }
+        
+        /* --- Home Section --- */
+        #home {
+            height: 100vh; display: flex; justify-content: center; align-items: center; text-align: center; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgHHSKtpA8CK2cv_mHVrmSly3WaNH2usxAqU9LiFzdgs3PgQygnyTVCOUQAsmB88l8e_QSRwn4OprngD-lrALyDgYbmVeVvrOKOPqKGNq8xsGHICjf7vejAKEO_7vCX8dh-e9z2eNtzrzUd521nDwuf6nD6uoM_zk02eFVJEX3tGI7lFvhkgzpgGLtKjmrd/s4000/splash.png') no-repeat center center/cover; background-attachment: scroll; 
+        }
+        .glitch-title { font-size: 3.5rem; font-weight: 900; color: var(--primary-yellow); margin-bottom: 15px; text-shadow: 1px 1px var(--secondary-orange); animation: glitch-subtle 3s infinite alternate; }
+        .static-text { font-size: 1.2rem; min-height: 1.2rem; margin-bottom: 30px; font-family: 'Press Start 2P', cursive; color: #fff; line-height: 1.6; max-width: 800px; visibility: hidden; }
+        .btn-pulse { padding: 12px 40px; font-size: 1.1rem; background: transparent; color: var(--primary-yellow); border: 3px solid var(--primary-yellow); border-radius: 50px; text-decoration: none; font-weight: 900; display: inline-block; box-shadow: 0 0 10px rgba(255, 235, 59, 0.3); animation: button-pulse 2s infinite; transition: var(--transition-speed); }
+        @keyframes button-pulse { 0% { box-shadow: 0 0 0 0 rgba(255, 235, 59, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(255, 235, 59, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 235, 59, 0); } }
 
-.logo { text-align:center; margin-bottom:18px; }
-.logo img { width:320px; max-width:80%; border-radius:12px; box-shadow:0 0 25px #FFD700; }
+        /* --- Downloads Section --- */
+        .download-platform { background: #181818; padding: 30px; border-radius: 15px; margin-bottom: 30px; border-left: 5px solid var(--secondary-orange); box-shadow: 0 5px 20px rgba(0,0,0,0.5); }
+        .download-platform h3 { color: var(--primary-yellow); font-size: 1.5rem; margin-bottom: 15px; display: flex; align-items: center; }
+        .download-buttons { display: flex; gap: 15px; flex-wrap: wrap; }
+        .download-buttons a {
+            flex: 1 1 200px; padding: 15px 25px; background: var(--primary-yellow); color: var(--bg-dark); text-decoration: none; font-weight: 900; border-radius: 8px; text-align: center; transition: background var(--fast-transition), transform var(--fast-transition), box-shadow var(--fast-transition); box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        .download-buttons a:hover { background: #fff; transform: translateY(-2px) scale(1.02); box-shadow: 0 6px 15px rgba(255, 235, 59, 0.5); }
+        .download-buttons .secondary { background: #333; color: #fff; }
+        .download-buttons .secondary:hover { background: var(--secondary-orange); color: #000; }
+        
+        /* ================================================= */
+        /* --- Team Section (بطاقات المساهمين الجديدة) --- */
+        /* ================================================= */
+        .team-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .team-category {
+            margin-bottom: 50px;
+        }
+        .category-header {
+            font-size: 1.6rem;
+            color: var(--secondary-orange);
+            text-align: right;
+            border-bottom: 2px solid var(--primary-yellow);
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+        .members-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+        .member-card {
+            background: var(--bg-card);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border-left: 3px solid var(--primary-yellow);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            transition: transform var(--fast-transition), box-shadow var(--fast-transition);
+        }
+        .member-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 10px 25px rgba(255, 235, 59, 0.3);
+            border-left: 3px solid var(--secondary-orange);
+        }
+        .member-card h4 {
+            color: var(--primary-yellow);
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+        .member-card small {
+            color: #ccc;
+            font-size: 0.85rem;
+            display: block;
+        }
 
-.content-section { display:none; margin-top:18px; text-align:center; line-height:1.5em; font-size:1.15em; }
-.content-section.active { display:block; }
+        /* --- Timeline (سجل التغييرات) --- */
+        .timeline { max-width: 800px; margin: 0 auto; border-right: 3px solid var(--secondary-orange); padding-right: 20px; position: relative; }
+        .timeline-item { margin-bottom: 40px; position: relative; background: #181818; padding: 20px; border-radius: 8px; box-shadow: 0 3px 15px rgba(0,0,0,0.5); transition: transform 0.2s; }
+        .timeline-item:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(255, 152, 0, 0.2); }
+        .timeline-item::after { content: '⭐'; position: absolute; top: 5px; right: -32px; width: 30px; height: 30px; background: var(--primary-yellow); color: var(--bg-dark); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 0.9rem; box-shadow: 0 0 10px rgba(255, 235, 59, 0.5); }
+        .timeline-item h3 { color: var(--primary-yellow); font-size: 1.4rem; margin-bottom: 10px; padding-bottom: 5px; border-bottom: 1px dashed #333; }
+        .timeline-item ul { list-style: none; padding: 0; margin-top: 10px; }
+        .timeline-item li { padding: 6px 0 6px 15px; position: relative; font-size: 0.95rem; line-height: 1.6; }
+        .timeline-item li.fix::before { content: '🛠️ '; }
+        .timeline-item li.feature::before { content: '✨ '; }
+        .timeline-item li.general::before { content: '⚙️ '; }
+        .timeline-item li::before { color: var(--secondary-orange); font-weight: bold; display: inline-block; width: 2em; margin-left: -2em; position: absolute; right: 0; top: 6px; }
 
-.section-title { font-size:1.5em; color:#FFA500; margin:16px 0; font-weight:800; text-shadow:0 0 8px #FFD700; }
+        /* --- Responsive Adjustments --- */
+        @media (max-width: 768px) {
+            .cursor { display: none; }
+            * { cursor: auto; }
+            nav { display: none; }
+            header { justify-content: center; }
+            .glitch-title { font-size: 2.2rem; }
+            section { padding: 40px 5%; }
+            .timeline { border-right: none; padding-right: 0; border-left: 3px solid var(--secondary-orange); padding-left: 20px; }
+            .timeline-item::after { right: auto; left: -15px; }
+            .timeline-item li::before { right: auto; left: 0; }
+            .members-grid { grid-template-columns: 1fr; } /* بطاقة واحدة في العرض الصغير */
+            .member-card { text-align: right; }
+        }
 
-.table-wrap { overflow-x:auto; margin-top:12px; background: rgba(0,0,0,0.65); border-radius:10px; }
-.table-main {
-  width:100%; border-collapse:collapse; table-layout:fixed;
-  box-shadow: 0 0 18px rgba(255,165,0,0.06);
-}
-.table-main thead th {
-  padding:14px 12px; text-align:center; font-size:1.05em;
-  background: linear-gradient(90deg,#FFD700,#FFA500); color:#000; font-weight:800;
-  border-bottom:1px solid rgba(0,0,0,0.15);
-}
-.table-main tbody td {
-  padding:14px 12px; color:#FFD700; vertical-align:middle; text-align:center;
-  border-bottom:1px solid rgba(255,165,0,0.06);
-  word-wrap:break-word;
-}
-.table-main tbody tr:hover { background: rgba(255,215,0,0.06); }
-
-.update-box {
-  margin:18px auto; max-width:900px; text-align:right;
-  background: rgba(255,215,0,0.06); border:1px solid rgba(255,165,0,0.15);
-  padding:12px 16px; border-radius:10px; color:#FFFFE0;
-}
-.update-box h2 { margin:0 0 6px 0; color:#FFF8DC; font-size:1.15em; }
-.update-box p { margin:6px 0; color:#FFF8DC; }
-
-a.link-button {
-  display:inline-block; padding:10px 14px; border-radius:8px;
-  background: linear-gradient(90deg,#FFD700,#FFA500); color:#000; font-weight:700;
-  text-decoration:none; box-shadow:0 0 18px rgba(255,215,0,0.12);
-  transition:0.25s all ease;
-}
-a.link-button:hover {
-  transform: scale(1.06);
-  box-shadow:0 0 25px #FFD700,0 0 35px #FFA500;
-}
-
-footer {
-  background: rgba(0,0,0,0.65); color:#FFD700; text-align:center; padding:16px;
-  font-size:1.05em; margin-top:24px; border-radius:10px;
-}
-
-@media (max-width:768px){
-  header h1{font-size:2em;}
-  .logo img{width:220px;}
-  nav button{padding:10px 14px; font-size:1em;}
-  .table-main thead th, .table-main tbody td { padding:12px 8px; font-size:1em; }
-}
-@media (max-width:480px){
-  header h1{font-size:1.6em;}
-  .logo img{width:160px;}
-  .main{padding:0 12px;}
-}
-</style>
+        footer { text-align: center; padding: 40px; background: #000; color: #555; border-top: 1px solid #333;}
+    </style>
 </head>
 <body>
 
-<header>
-  <h1>اندرتيل يلو</h1>
-</header>
+    <div class="cursor"></div>
+    <div class="particles" id="particles"></div>
 
-<nav>
-  <button onclick="showSection('report')">الإبلاغ عن الأخطاء</button>
-  <button onclick="showSection('downloads')">تحميل التعريب</button>
-  <button onclick="showSection('team')">المسؤولون عن التعريب</button>
-  <button onclick="showSection('intro')">نبذة عن التعريب</button>
-</nav>
+    <header>
+        <div class="logo">اندرتيل الصفراء المعربة</div>
+        <nav>
+            <ul>
+                <li><a href="#home">الرئيسية</a></li>
+                <li><a href="#downloads">روابط التحميل</a></li>
+                <li><a href="#team">المساهمون</a></li>
+                <li><a href="#info">التغييرات</a></li>
+            </ul>
+        </nav>
+    </header>
 
-<main class="main">
+    <section id="home">
+        <div class="hero-content">
+            <h1 class="glitch-title">اندرتيل الصفراء المعربة</h1>
+            <p class="static-text">العدالة تنتظر... هل لديك العزيمة لإنهاء القصة؟</p>
+            <a href="#downloads" class="btn-pulse">تحميل التحديث (v1.3)</a>
+        </div>
+    </section>
 
-  <section id="intro" class="content-section active">
-    <div class="logo">
-      <img src="https://upload.wikimedia.org/wikipedia/en/9/93/Undertale_Yellow.png" alt="Undertale Yellow">
-    </div>
-    <div class="section-title">نبذة عن التعريب</div>
-    <p>بحمد الله تم الانتهاء من تعريب اللعبة المشهورة اندرتيل يلو، والتي لاقت رواجًا واسعًا في مجتمع اندرتال.<br>
-    جئنا بهذا التعريب لنمنح كل لاعب عربي الفرصة لتجربة الجوهرة الصفراء بلغته الأم.<br>
-    تم العمل على التعريب من قبل مجموعة من الأفراد اجتمعوا على حبهم للعبة اندرتيل يلو ورغبتهم في تقديمها للاعب العربي ليستمتع بها.</p>
-  </section>
+    <section id="downloads">
+        <h2 class="section-title">روابط التحميل المباشرة</h2>
+        <div class="download-container" style="max-width: 900px; margin: 0 auto;">
+            
+            <div class="download-platform">
+                <h3>🖥️ الكمبيوتر (PC) - نسخة الويندوز الكاملة</h3>
+                <p style="color: #ccc; margin-bottom: 15px;">النسخة الأحدث والأكثر استقراراً للأجهزة المكتبية (64-bit).</p>
+                <div class="download-buttons">
+                    <a href="https://www.mediafire.com/file/xgtzhd5dcgnqaiw/%25D8%25AA%25D8%25B9%25D8%25B1%25D9%258A%25D8%25A8_%25D8%25A7%25D9%2586%25D8%25AF%25D8%25B1%25D8%25AA%25D9%258A%25D9%2584_%25D9%258A%25D9%2584%25D9%2588__%25D8%25A8%25D9%258A_%25D8%25B3%25D9%258A__1.0.rar/file" class="primary">تحميل مباشر (الرئيسي)</a>
+                </div>
+            </div>
 
-  <section id="team" class="content-section">
-    <div class="section-title">المسؤولون عن التعريب</div>
-    <div class="table-wrap">
-      <table class="table-main">
-        <thead>
-          <tr>
-            <th>الدور</th>
-            <th>الأسماء / التفاصيل</th>
-            <th>ملاحظات</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>مترجمون</td>
-            <td style="text-align:right;">
-              عبود (zhahaha15) — 4600 سطر<br>
-              shaodoxr2 — 4000 سطر<br>
-              Rayane907 — 3000 سطر<br>
-              riitz11 — 2700 سطر<br>
-              amine_gd123 — 500 سطر<br>
-              0vvm — 500 سطر<br>
-              .la_9 — 500 سطر<br>
-              billcipherx — 500 سطر<br>
-              who — 500 سطر
-            </td>
-            <td>تقسيم الأسطر حسب المصدر</td>
-          </tr>
-          <tr>
-            <td>مبرمجون</td>
-            <td style="text-align:right;">shaodoxr2 — (مع مساعدة تركي: riitz11)</td>
-            <td>ديناميكية تشغيل/تجربة</td>
-          </tr>
-          <tr>
-            <td>مدققون</td>
-            <td style="text-align:right;">riitz11 — تدقيق تقريبًا 10000 نص</td>
-            <td>مدقق رئيسي</td>
-          </tr>
-          <tr>
-            <td>مراجعون</td>
-            <td style="text-align:right;">shaodoxr2, Rayane907, riitz11, whatever_lz, muslim_mx</td>
-            <td>مراجعات نهائية</td>
-          </tr>
-          <tr>
-            <td>مصممو الصور</td>
-            <td style="text-align:right;">
-              فارس — 84 صورة<br>
-              سنايبر — 14 صورة<br>
-              ركان — 1 صورة<br>
-              "انا" — 4 صور<br>
-              8.1n — صورتين
-            </td>
-            <td>أعمال فنية</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
+            <div class="download-platform">
+                <h3>📱 أندرويد (Mobile) - الأجهزة الحديثة</h3>
+                <p style="color: #ccc; margin-bottom: 15px;">للأجهزة التي تعمل بنظام 64-bit، توفر أفضل أداء وموسيقى كاملة.</p>
+                <div class="download-buttons">
+                    <a href="https://www.mediafire.com/file/0rl4tod72ecnojl/%25D8%25AA%25D8%25B9%25D8%25B1%25D9%258A%25D8%25A8_%25DD8%25A7%25D9%2586%25D8%25AF%25D8%25B1%25D8%25AA%25D9%258A%25D9%2584_%25D9%258A%25D9%2584%25D9%2588__%25D8%25A7%25D9%2584%25D8%25AC%25D9%2588%25D8%25A7%25D9%2584.zip/file">النسخة الكاملة (64-bit)</a>
+                    <a href="https://www.mediafire.com/file/c29xwyqbgmtgzgk/%25D8%25AA%25D8%25B9%25D8%25B1%25D9%258A%25D8%25A8_%25D8%25A7%25D9%2586%25D8%25AF%25D8%25B1%25D8%25AA%25D9%258A%25D9%2584_%25D9%258A%25D9%2584%25D9%2588__%25D8%25A7%25D9%2584%25D8%25AC%25D9%2588%25D8%25A7%25D9%2584_32_%25D8%25A8%25D8%25AB.zip/file" class="secondary">نسخة بدون موسيقى (64-bit)</a>
+                </div>
+            </div>
 
-  <section id="downloads" class="content-section">
-    <div class="section-title">تحميل التعريب</div>
-    <div class="table-wrap">
-      <table class="table-main">
-        <thead>
-          <tr>
-            <th>اسم الملف</th>
-            <th>الوصف</th>
-            <th>الحجم</th>
-            <th>رابط التحميل</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td style="text-align:right;">نسخة البيسي</td>
-            <td style="text-align:right;">نسخة للكمبيوتر (PC)</td>
-            <td>97 MB</td>
-            <td><a class="link-button" href="https://www.mediafire.com/file/xgtzhd5dcgnqaiw/%25D8%25AA%25D8%25B9%25D8%25B1%25D9%258A%25D8%25A8_%25D8%25A7%25D9%2586%25D8%25AF%25D8%25B1%25D8%25AA%25D9%258A%25D9%2584_%25D9%258A%25D9%2584%25D9%2588__%25D8%25A8%25D9%258A_%25D8%25B3%25D9%258A__1.0.rar/file" target="_blank">تحميل</a></td>
-          </tr>
-          <tr>
-            <td style="text-align:right;">نسخة الجوال</td>
-            <td style="text-align:right;">نسخة الجوال</td>
-            <td>250 MB</td>
-            <td><a class="link-button" href="https://www.mediafire.com/file/0rl4tod72ecnojl/%25D8%25AA%25D8%25B9%25D8%25B1%25D9%258A%25D8%25A8_%25D8%25A7%25D9%2586%25D8%25AF%25D8%25B1%25D8%25AA%25D9%258A%25D9%2584_%25D9%258A%25D9%2584%25D9%2588__%25D8%25A7%25D9%2584%25D8%25AC%25D9%2588%25D8%25A7%25D9%2584.zip/file" target="_blank">تحميل</a></td>
-          </tr>
-          <tr>
-            <td style="text-align:right;">نسخة الجوال بدون موسيقى</td>
-            <td style="text-align:right;">نسخة الجوال بدون موسيقى</td>
-            <td>131 MB</td>
-            <td><a class="link-button" href="https://www.mediafire.com/file/c29xwyqbgmtgzgk/%25D8%25AA%25D8%25B9%25D8%25B1%25D9%258A%25D8%25A8_%25D8%25A7%25D9%2586%25D8%25AF%25D8%25B1%25D8%25AA%25D9%258A%25D9%2584_%25D9%258A%25D9%2584%25D9%2588__%25D8%25A7%25D9%2584%25D8%25AC%25D9%2588%25D8%25A7%25D9%2584_%25D8%25A8%25D8%25AF%25D9%2588%25D9%2586_%25D9%2585%25D9%2588%25D8%25B3%25D9%258A%25D9%2582%25D9%2589.zip/file" target="_blank">تحميل</a></td>
-          </tr>
-          <tr>
-            <td style="text-align:right;">نسخة الجوال 32 بث</td>
-            <td style="text-align:right;">نسخة 32 بث</td>
-            <td>250 MB</td>
-            <td><a class="link-button" href="https://www.mediafire.com/file/g2bh53p1ppmje0z/%25D8%25AA%25D8%25B9%25D8%25B1%25D9%258A%25D8%25A8_%25D8%25A7%25D9%2586%25D8%25AF%25D8%25B1%25D8%25AA%25D9%258A%25D9%2584_%25D9%258A%25D9%2584%25D9%2588__%25D8%25A7%25D9%2584%25D8%25AC%25D9%2588%25D8%25A7%25D9%2584_32_%25D8%25A8%25D8%25AB.zip/file" target="_blank">تحميل</a></td>
-          </tr>
-          <tr>
-            <td style="text-align:right;">نسخة الجوال 32 بث بدون موسيقى</td>
-            <td style="text-align:right;">نسخة 32 بث بدون موسيقى</td>
-            <td>131 MB</td>
-            <td><a class="link-button" href="https://www.mediafire.com/file/3so56i91jftsknz/%25D8%25AA%25D8%25B9%25D8%25B1%25D9%258A%25D8%25A8_%25D8%25A7%25D9%2586%25D8%25AF%25D8%25B1%25D8%25AA%25D9%258A%25D9%2584_%25D9%258A%25D9%2584%25D9%2588__%25D8%25A7%25D9%2584%25D8%25AC%25D9%2588%25D8%25A7%25D9%2584_32_%25D8%25A8%25D8%25AB_%25D8%25A8%25D8%25AF%25D9%2588%25D9%2586_%25D9%2585%25D9%2588%25D8%25B3%25D9%258A%25D9%2582%25D9%2589.zip/file" target="_blank">تحميل</a></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+            <div class="download-platform">
+                <h3>⚙️ أجهزة أندرويد قديمة (32-bit)</h3>
+                <p style="color: #ccc; margin-bottom: 15px;">للأجهزة الضعيفة أو القديمة التي تستخدم معالجات 32-bit.</p>
+                <div class="download-buttons">
+                    <a href="https://www.mediafire.com/file/g2bh53p1ppmje0z/%25D8%25AA%25D8%25B9%25D8%25B1%25D9%258A%25D8%25A8_%25D8%25A7%25D9%2586%25D8%25AF%25D8%25B1%25D8%25AA%25D9%258A%25D9%2584_%25D9%258A%25D9%2584%25D9%2588__%25D8%25A7%25D9%2584%25D8%25AC%25D9%2588%25D8%25A7%25D9%2584_32_%25D8%25A8%25D8%25AB.zip/file">النسخة الكاملة (32-bit)</a>
+                    <a href="https://www.mediafire.com/file/3so56i91jftsknz/%25D8%25AA%25D8%25B9%25D8%25B1%25D9%258A%25D8%25A8_%25D8%25A7%25D9%2586%25D8%25AF%25D8%25B1%25D8%25AA%25D9%258A%25D9%2584_%25D9%258A%25D9%2584%25D9%2588__%25D8%25A7%25D9%2584%25D8%25AC%25D9%2588%25D8%25A7%25D9%2584_32_%25D8%25A8%25D8%25AB_%25D8%25A8%25D8%25AF%25D9%2588%25D9%2586_%25D9%2585%25D9%2588%25D8%25B3%25D9%258A%25D9%2582%25D9%2589.zip/file" class="secondary">نسخة بدون موسيقى (32-bit)</a>
+                </div>
+            </div>
 
-    <div class="update-box">
-      <h2>آخر تحديث (v1.2)</h2>
-      <p>• تم إصلاح بعض الأخطاء في الحوارات والمواجهات (بما في ذلك مشاكل خروج اللعبة في مناطق معينة).</p>
-      <p>• تاريخ الإعلان: 26/09/2025</p>
-    </div>
-  </section>
+        </div>
+    </section>
 
-  <section id="report" class="content-section">
-    <div class="section-title">الإبلاغ عن الأخطاء</div>
-    <p>إذا لاحظت أخطاء، انشرها في هذا السيرفر:</p>
-    <p><a class="link-button" href="https://discord.gg/DjfmqhUtnq" target="_blank">سيرفر الديسكورد</a></p>
-  </section>
+    <section id="team">
+        <h2 class="section-title">فريق العمل الأسطوري (المساهمون)</h2>
+        <div class="team-container">
+            
+            <div class="team-category">
+                <h3 class="category-header">💻 المبرمجون والمهندسون</h3>
+                <div class="members-grid">
+                    <div class="member-card">
+                        <h4>shaodoxr2</h4>
+                        <small>قائد الفريق والمطور الرئيسي</small>
+                    </div>
+                    <div class="member-card">
+                        <h4>riitz11</h4>
+                        <small>10 آلاف تعديل برمجي</small>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="team-category">
+                <h3 class="category-header">📝 المترجمون الرئيسيون</h3>
+                <div class="members-grid">
+                    <div class="member-card"><h4>zhahaha15</h4><small>4600 سطر</small></div>
+                    <div class="member-card"><h4>shaodoxr2</h4><small>4000 سطر</small></div>
+                    <div class="member-card"><h4>Rayane907</h4><small>3000 سطر</small></div>
+                    <div class="member-card"><h4>riitz11</h4><small>2700 سطر</small></div>
+                    <div class="member-card"><h4>amine_gd123</h4><small>500 سطر</small></div>
+                    <div class="member-card"><h4>0vvm</h4><small>500 سطر</small></div>
+                    <div class="member-card"><h4>.la_9</h4><small>500 سطر</small></div>
+                    <div class="member-card"><h4>billcipherx</h4><small>500 سطر</small></div>
+                    <div class="member-card"><h4>who</h4><small>500 سطر</small></div>
+                </div>
+            </div>
+            
+            <div class="team-category">
+                <h3 class="category-header">🔍 المدققون والمراجعون</h3>
+                <div class="members-grid">
+                    <div class="member-card"><h4>shaodoxr2</h4><small>مراجعة شاملة</small></div>
+                    <div class="member-card"><h4>Rayane907</h4><small>مراجعة شاملة</small></div>
+                    <div class="member-card"><h4>riitz11</h4><small>مراجعة شاملة</small></div>
+                    <div class="member-card"><h4>whatever_lz</h4></div>
+                    <div class="member-card"><h4>muslim_mx</h4></div>
+                </div>
+            </div>
+            
+            <div class="team-category">
+                <h3 class="category-header">🎨 المصممون والفنانون</h3>
+                <div class="members-grid">
+                    <div class="member-card"><h4>فارس</h4><small>84 صورة مُعدَّلة</small></div>
+                    <div class="member-card"><h4>سنايبر</h4><small>14 صورة مُعدَّلة</small></div>
+                    <div class="member-card"><h4>المُعلن</h4><small>4 صور مُعدَّلة</small></div>
+                    <div class="member-card"><h4>8.1n</h4><small>صورتين مُعدَّلتين</small></div>
+                    <div class="member-card"><h4>ركان</h4><small>صورة مُعدَّلة</small></div>
+                </div>
+            </div>
 
-</main>
+        </div>
+    </section>
 
-<footer>إن شاء الله تستمتعون بالتعريب</footer>
+    <section id="info">
+        <h2 class="section-title">سجل التغييرات الكامل (الخط الزمني)</h2>
+        <div class="timeline">
+            
+            <div class="timeline-item">
+                <h3>✨ التحديث الأخير (v1.3)</h3>
+                <p style="color: var(--secondary-orange); font-size: 0.9rem;">تاريخ الإصدار: 20/07/2025</p>
+                <ul>
+                    <li class="fix">تصحيح الأخطاء الإملائية في نصوص الحوارات ومعالجة خروج النصوص من المربعات.</li>
+                    <li class="feature">تعريب أسماء الوحوش الجانبية لتناسب الطابع العربي وتحافظ على جو اللعبة.</li>
+                </ul>
+            </div>
 
-<script>
-function showSection(id){
-  document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-}
-</script>
-</body>
-</html>
+            <div class="timeline-item">
+                <h3>⚙️ التحديث السابق (v1.2)</h3>
+                <p style="color: var(--secondary-orange); font-size: 0.9rem;">تاريخ الإصدار: 01/05/2025</p>
+                <ul>
+                    <li class="fix">إصلاح أخطاء الخروج المفاجئ في حوار آكسيس.</li>
+                    <li class="fix">إصلاح أخطاء حوار تشوجين.</li>
+                    <li class="fix">حل مشاكل تقنية في قتال فلاوي.</li>
+                    <li class="general">تعديل مرحلة الميني جيم (المزج) لتصبح أسهل على الجوال.</li>
+                </ul>
+            </div>
+            
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2025 فريق أندرتيل الصفراء المعربة</p>
+        <a href="https://discord.gg/DjfmqhUtnq" style="color: var(--primary-yellow); text-decoration: none;">انضم لسيرفر الديسكورد للتواصل</a>
+    </footer>
+
+    <script>
+        // 1. الكرسر المخصص (Heart Cursor)
+        const cursor = document.querySelector('.cursor');
+        const interactiveElements = document.querySelectorAll('a, button, .download-buttons a, .member-card, .btn-pulse, nav a'); 
+
+        document.addEventListener('mousemove', (e) => {
+            if (window.innerWidth > 768) {
+                requestAnimationFrame(() => {
+                    cursor.style.left = e.pageX + 'px';
+                    cursor.style.top = e.pageY + 'px';
+                });
+            }
+        });
+
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => { if (window.innerWidth > 768) cursor.classList.add('hovered'); });
+            el.addEventListener('mouseleave', () => { if (window.innerWidth > 768) cursor.classList.remove('hovered'); });
+        });
+
+        // 2. توليد النجوم في الخلفية
+        const particlesContainer = document.getElementById('particles');
+        const particleCount = 40; 
+
+        for (let j = 0; j < particleCount; j++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+     
