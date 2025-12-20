@@ -3,27 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>اندرتيل الصفراء المعربة - v1.3 (بطاقات المساهمين)</title>
+    <title>اندرتيل الصفراء المعربة - v1.3</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
         :root {
             --primary-yellow: #ffeb3b;
             --secondary-orange: #ff9800;
+            --discord-blue: #5865F2;
+            --discord-dark: #404EED;
             --bg-dark: #121212;
             --bg-card: #1e1e1e;
             --text-light: #ffffff;
-            --transition-speed: 0.3s;
-            --fast-transition: 0.2s ease-out;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            cursor: none; 
         }
 
         body {
+            cursor: none;
             font-family: 'Tajawal', sans-serif;
             background-color: var(--bg-dark);
             color: var(--text-light);
@@ -32,227 +28,353 @@
             scroll-behavior: smooth; 
         }
 
+        @media (max-width: 768px) {
+            body, a, button { cursor: auto !important; }
+            .cursor { display: none !important; }
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body::-webkit-scrollbar { width: 8px; }
         body::-webkit-scrollbar-track { background: var(--bg-dark); }
         body::-webkit-scrollbar-thumb { background-color: var(--primary-yellow); border-radius: 20px; border: 2px solid var(--bg-dark); }
 
-        header, .btn-pulse, .cursor, .member-card, .download-buttons a { will-change: transform, opacity, box-shadow; }
-
-        /* --- Global & Reusable Styles --- */
-        section { 
-            padding: 60px 8%; 
-        }
-        
-        .section-title { 
-            text-align: center; 
-            color: var(--primary-yellow); 
-            margin-bottom: 40px; 
-            font-size: 1.8rem; 
-            font-weight: 900; 
-            animation: flicker-soft 5s infinite alternate; 
-        }
-        @keyframes flicker-soft {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.9; text-shadow: 0 0 5px rgba(255, 235, 59, 0.5); }
-        }
-
-        /* --- Cursor Customization (مؤشر القلب) --- */
+        /* --- مؤشر الماوس --- */
         .cursor { 
-            width: 18px; height: 18px; background: var(--primary-yellow); position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%) rotate(45deg); box-shadow: 0 0 8px var(--primary-yellow); transition: transform 0.15s ease-out, width 0.2s, height 0.2s; mix-blend-mode: normal; border-radius: 2px;
+            width: 20px; height: 20px; background: var(--primary-yellow); position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; 
+            transform: translate(-50%, -50%) rotate(45deg); box-shadow: 0 0 10px var(--primary-yellow); transition: width 0.2s, height 0.2s; border-radius: 2px; mix-blend-mode: exclusion;
         }
-        .cursor.hovered { 
-            width: 28px; height: 28px; background: var(--primary-yellow); box-shadow: 0 0 18px var(--primary-yellow), 0 0 5px #fff; transform: translate(-50%, -50%) rotate(45deg) scale(1.1); 
-        }
-        
-        /* --- Header & Navigation --- */
-        header {
-            background: rgba(10, 10, 10, 0.9); padding: 12px 5%; position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 2px solid var(--primary-yellow); display: flex; justify-content: space-between; align-items: center; backdrop-filter: blur(5px);
-        }
-        .logo { font-weight: 900; color: var(--primary-yellow); font-size: 1.3rem; text-shadow: 0 0 5px rgba(255, 235, 59, 0.5); }
-        nav ul { display: flex; list-style: none; gap: 25px; }
-        nav a { color: #fff; text-decoration: none; font-weight: 700; font-size: 1rem; position: relative; transition: color var(--fast-transition); }
-        nav a::after { content: ''; position: absolute; width: 0; height: 3px; bottom: -8px; right: 0; background: var(--primary-yellow); transition: width var(--fast-transition); border-radius: 2px; }
-        nav a:hover { color: var(--primary-yellow); text-shadow: 0 0 8px rgba(255, 235, 59, 0.7); }
-        nav a:hover::after { width: 100%; }
-        
-        /* --- Home Section --- */
-        #home {
-            height: 100vh; display: flex; justify-content: center; align-items: center; text-align: center; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgHHSKtpA8CK2cv_mHVrmSly3WaNH2usxAqU9LiFzdgs3PgQygnyTVCOUQAsmB88l8e_QSRwn4OprngD-lrALyDgYbmVeVvrOKOPqKGNq8xsGHICjf7vejAKEO_7vCX8dh-e9z2eNtzrzUd521nDwuf6nD6uoM_zk02eFVJEX3tGI7lFvhkgzpgGLtKjmrd/s4000/splash.png') no-repeat center center/cover; background-attachment: scroll; 
-        }
-        .glitch-title { font-size: 3.5rem; font-weight: 900; color: var(--primary-yellow); margin-bottom: 15px; text-shadow: 1px 1px var(--secondary-orange); animation: glitch-subtle 3s infinite alternate; }
-        .static-text { font-size: 1.2rem; min-height: 1.2rem; margin-bottom: 30px; font-family: 'Press Start 2P', cursive; color: #fff; line-height: 1.6; max-width: 800px; visibility: hidden; }
-        .btn-pulse { padding: 12px 40px; font-size: 1.1rem; background: transparent; color: var(--primary-yellow); border: 3px solid var(--primary-yellow); border-radius: 50px; text-decoration: none; font-weight: 900; display: inline-block; box-shadow: 0 0 10px rgba(255, 235, 59, 0.3); animation: button-pulse 2s infinite; transition: var(--transition-speed); }
-        @keyframes button-pulse { 0% { box-shadow: 0 0 0 0 rgba(255, 235, 59, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(255, 235, 59, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 235, 59, 0); } }
+        .cursor.hovered { width: 30px; height: 30px; background: #fff; box-shadow: 0 0 15px #fff; }
 
-        /* --- Downloads Section --- */
-        .download-platform { background: #181818; padding: 30px; border-radius: 15px; margin-bottom: 30px; border-left: 5px solid var(--secondary-orange); box-shadow: 0 5px 20px rgba(0,0,0,0.5); }
-        .download-platform h3 { color: var(--primary-yellow); font-size: 1.5rem; margin-bottom: 15px; display: flex; align-items: center; }
-        .download-buttons { display: flex; gap: 15px; flex-wrap: wrap; }
-        .download-buttons a {
-            flex: 1 1 200px; padding: 15px 25px; background: var(--primary-yellow); color: var(--bg-dark); text-decoration: none; font-weight: 900; border-radius: 8px; text-align: center; transition: background var(--fast-transition), transform var(--fast-transition), box-shadow var(--fast-transition); box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        /* --- الهيدر --- */
+        header {
+            background: rgba(10, 10, 10, 0.9); padding: 15px 5%; position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 2px solid var(--primary-yellow); display: flex; justify-content: space-between; align-items: center; backdrop-filter: blur(10px);
         }
-        .download-buttons a:hover { background: #fff; transform: translateY(-2px) scale(1.02); box-shadow: 0 6px 15px rgba(255, 235, 59, 0.5); }
-        .download-buttons .secondary { background: #333; color: #fff; }
-        .download-buttons .secondary:hover { background: var(--secondary-orange); color: #000; }
+        .logo { font-weight: 900; color: var(--primary-yellow); font-size: 1.3rem; text-shadow: 0 0 5px rgba(255, 235, 59, 0.3); }
+        nav ul { display: flex; list-style: none; gap: 25px; }
+        nav a { color: #fff; text-decoration: none; font-weight: 700; transition: color 0.2s; font-size: 1.1rem; }
+        nav a:hover { color: var(--primary-yellow); }
+
+        section { padding: 100px 8% 40px; }
+        .section-title { text-align: center; color: var(--primary-yellow); margin-bottom: 50px; font-size: 2rem; font-weight: 900; position: relative; display: inline-block; left: 50%; transform: translateX(-50%); }
+        .section-title::after { content: ''; display: block; width: 60%; height: 4px; background: var(--secondary-orange); margin: 10px auto 0; border-radius: 2px; }
+
+        /* ========================================= */
+        /* --- الصفحة الرئيسية (الحية والديناميكية) --- */
+        /* ========================================= */
+        #home {
+            height: 100vh; display: flex; justify-content: center; align-items: center; text-align: center; position: relative; overflow: hidden;
+            background: #000;
+        }
+
+        .bg-image {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(0,0,0,0.5), #121212), url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgHHSKtpA8CK2cv_mHVrmSly3WaNH2usxAqU9LiFzdgs3PgQygnyTVCOUQAsmB88l8e_QSRwn4OprngD-lrALyDgYbmVeVvrOKOPqKGNq8xsGHICjf7vejAKEO_7vCX8dh-e9z2eNtzrzUd521nDwuf6nD6uoM_zk02eFVJEX3tGI7lFvhkgzpgGLtKjmrd/s4000/splash.png') no-repeat center center/cover;
+            z-index: 1; filter: blur(2px); animation: breathe 10s infinite alternate;
+        }
+        @keyframes breathe { 0% { transform: scale(1); } 100% { transform: scale(1.05); } }
+
+        .crt-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 2px, 3px 100%;
+        }
+
+        .bg-battle-btns {
+            position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 2; pointer-events: none;
+        }
+        .floating-action {
+            position: absolute; font-family: 'Press Start 2P'; color: rgba(255,235,59,0.1); font-size: 1.5rem; border: 2px solid rgba(255,235,59,0.1); padding: 10px 20px;
+            animation: floatAround 20s infinite linear;
+        }
+        @keyframes floatAround {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(20px, 30px) rotate(5deg); }
+            50% { transform: translate(-10px, 10px) rotate(-5deg); }
+            75% { transform: translate(10px, -20px) rotate(3deg); }
+            100% { transform: translate(0, 0) rotate(0deg); }
+        }
+
+        .hero-content { z-index: 10; position: relative; width: 100%; max-width: 900px; }
         
-        /* ================================================= */
-        /* --- Team Section (بطاقات المساهمين الجديدة) --- */
-        /* ================================================= */
-        .team-container {
+        .soul-container { position: relative; margin-bottom: 20px; display: inline-block; }
+        .soul-icon {
+            font-size: 4rem; color: var(--primary-yellow); 
+            animation: pulse-soul 1.5s infinite cubic-bezier(0.2, 0.8, 0.2, 1);
+            filter: drop-shadow(0 0 20px var(--primary-yellow));
+        }
+        .soul-waves {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 100%; height: 100%; border: 2px solid var(--primary-yellow); border-radius: 50%;
+            animation: waveOut 2s infinite; opacity: 0;
+        }
+        @keyframes pulse-soul { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+        @keyframes waveOut { 0% { width: 100%; height: 100%; opacity: 0.8; } 100% { width: 300%; height: 300%; opacity: 0; } }
+
+        .glitch-wrapper { display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 10px; }
+        .hero-icon { font-size: 2.5rem; color: var(--secondary-orange); animation: spinSlow 8s infinite linear; opacity: 0.8; }
+        @keyframes spinSlow { 100% { transform: rotate(360deg); } }
+
+        .glitch-title { font-size: 4rem; color: var(--primary-yellow); text-shadow: 4px 4px 0 #000; letter-spacing: -2px; position: relative; display: inline-block; }
+        .glitch-title::before, .glitch-title::after {
+            content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-dark);
+        }
+        .glitch-title::before { left: 2px; text-shadow: -1px 0 #ff00c1; clip: rect(44px, 450px, 56px, 0); animation: glitch-anim 5s infinite linear alternate-reverse; }
+        .glitch-title::after { left: -2px; text-shadow: -1px 0 #00fff9; clip: rect(44px, 450px, 56px, 0); animation: glitch-anim2 5s infinite linear alternate-reverse; }
+        
+        @keyframes glitch-anim { 0% { clip: rect(30px, 9999px, 10px, 0); } 100% { clip: rect(80px, 9999px, 90px, 0); } }
+        @keyframes glitch-anim2 { 0% { clip: rect(10px, 9999px, 80px, 0); } 100% { clip: rect(90px, 9999px, 10px, 0); } }
+
+        .static-text { font-family: 'Press Start 2P', cursive; font-size: 1rem; color: #fff; margin-bottom: 50px; text-shadow: 2px 2px 4px #000; background: rgba(0,0,0,0.6); padding: 10px; display: inline-block; border-radius: 5px; }
+
+        .hero-btns { display: flex; gap: 25px; justify-content: center; align-items: center; flex-wrap: wrap; }
+        .main-btn {
+            padding: 18px 45px; border-radius: 4px; font-family: 'Press Start 2P'; font-size: 0.9rem; text-decoration: none; transition: all 0.2s; position: relative; border: 4px solid #fff;
+        }
+        
+        .btn-download {
+            background: var(--primary-yellow); color: #000; border-color: #fff; box-shadow: 0 0 0 4px #000;
+        }
+        .btn-download:hover {
+            background: #fff; color: #000; transform: scale(1.05); box-shadow: 0 0 20px var(--primary-yellow), 0 0 0 4px #000;
+        }
+        .btn-heart { display: inline-block; margin-left: 10px; animation: beat 1s infinite; color: #d32f2f; }
+        @keyframes beat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.3); } }
+
+        .btn-secondary {
+            background: #000; color: var(--primary-yellow); border-color: var(--primary-yellow); box-shadow: 0 0 0 4px #000;
+        }
+        .btn-secondary:hover { background: var(--primary-yellow); color: #000; box-shadow: 0 0 20px var(--primary-yellow), 0 0 0 4px #000; }
+
+        /* ========================================= */
+        /* --- قسم التحميل (تعديل 3 بطاقات) --- */
+        /* ========================================= */
+        .download-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
             max-width: 1200px;
             margin: 0 auto;
         }
-        .team-category {
-            margin-bottom: 50px;
-        }
-        .category-header {
-            font-size: 1.6rem;
-            color: var(--secondary-orange);
-            text-align: right;
-            border-bottom: 2px solid var(--primary-yellow);
-            padding-bottom: 10px;
-            margin-bottom: 25px;
-            font-weight: 700;
-        }
-        .members-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-        }
-        .member-card {
-            background: var(--bg-card);
-            padding: 20px;
-            border-radius: 10px;
+
+        .download-card {
+            background: rgba(30, 30, 30, 0.8);
+            border: 2px solid #444;
+            padding: 30px;
+            border-radius: 12px;
             text-align: center;
-            border-left: 3px solid var(--primary-yellow);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-            transition: transform var(--fast-transition), box-shadow var(--fast-transition);
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
-        .member-card:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 10px 25px rgba(255, 235, 59, 0.3);
-            border-left: 3px solid var(--secondary-orange);
-        }
-        .member-card h4 {
-            color: var(--primary-yellow);
-            font-size: 1.1rem;
-            margin-bottom: 5px;
-        }
-        .member-card small {
-            color: #ccc;
-            font-size: 0.85rem;
-            display: block;
+        
+        .download-card:hover {
+            border-color: var(--primary-yellow);
+            box-shadow: 0 0 25px rgba(255, 235, 59, 0.15);
+            transform: translateY(-5px);
         }
 
-        /* --- Timeline (سجل التغييرات) --- */
-        .timeline { max-width: 800px; margin: 0 auto; border-right: 3px solid var(--secondary-orange); padding-right: 20px; position: relative; }
-        .timeline-item { margin-bottom: 40px; position: relative; background: #181818; padding: 20px; border-radius: 8px; box-shadow: 0 3px 15px rgba(0,0,0,0.5); transition: transform 0.2s; }
-        .timeline-item:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(255, 152, 0, 0.2); }
-        .timeline-item::after { content: '⭐'; position: absolute; top: 5px; right: -32px; width: 30px; height: 30px; background: var(--primary-yellow); color: var(--bg-dark); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 0.9rem; box-shadow: 0 0 10px rgba(255, 235, 59, 0.5); }
-        .timeline-item h3 { color: var(--primary-yellow); font-size: 1.4rem; margin-bottom: 10px; padding-bottom: 5px; border-bottom: 1px dashed #333; }
-        .timeline-item ul { list-style: none; padding: 0; margin-top: 10px; }
-        .timeline-item li { padding: 6px 0 6px 15px; position: relative; font-size: 0.95rem; line-height: 1.6; }
-        .timeline-item li.fix::before { content: '🛠️ '; }
-        .timeline-item li.feature::before { content: '✨ '; }
-        .timeline-item li.general::before { content: '⚙️ '; }
-        .timeline-item li::before { color: var(--secondary-orange); font-weight: bold; display: inline-block; width: 2em; margin-left: -2em; position: absolute; right: 0; top: 6px; }
+        .platform-icon { font-size: 3rem; margin-bottom: 20px; color: var(--text-light); }
+        .pc-icon { color: #00a8ff; text-shadow: 0 0 15px rgba(0, 168, 255, 0.5); }
+        .android-icon { color: #a4c639; text-shadow: 0 0 15px rgba(164, 198, 57, 0.5); }
+        .bit32-icon { color: #ff9800; text-shadow: 0 0 15px rgba(255, 152, 0, 0.5); }
 
-        /* --- Responsive Adjustments --- */
+        .dl-card-title {
+            font-size: 1.3rem; color: var(--primary-yellow); margin-bottom: 20px; font-weight: bold;
+        }
+
+        .dl-list { display: flex; flex-direction: column; gap: 15px; margin-top: auto; }
+
+        .dl-link-btn {
+            background: #111; color: #fff; padding: 12px; border: 1px solid #555;
+            border-radius: 6px; text-decoration: none; display: flex; align-items: center;
+            justify-content: space-between; transition: 0.3s; font-size: 0.9rem;
+        }
+
+        .dl-link-btn:hover {
+            background: var(--primary-yellow); color: #000; border-color: var(--primary-yellow); font-weight: bold;
+        }
+
+        .dl-link-btn span { display: flex; align-items: center; gap: 10px; }
+        .dl-tag { font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; background: #333; color: #aaa; }
+        .dl-link-btn:hover .dl-tag { background: #000; color: var(--primary-yellow); }
+
+
         @media (max-width: 768px) {
-            .cursor { display: none; }
-            * { cursor: auto; }
-            nav { display: none; }
-            header { justify-content: center; }
-            .glitch-title { font-size: 2.2rem; }
-            section { padding: 40px 5%; }
-            .timeline { border-right: none; padding-right: 0; border-left: 3px solid var(--secondary-orange); padding-left: 20px; }
-            .timeline-item::after { right: auto; left: -15px; }
-            .timeline-item li::before { right: auto; left: 0; }
-            .members-grid { grid-template-columns: 1fr; } /* بطاقة واحدة في العرض الصغير */
-            .member-card { text-align: right; }
+            .glitch-title { font-size: 2rem; }
+            .hero-btns { flex-direction: column; width: 100%; padding: 0 20px; }
+            .main-btn { width: 100%; text-align: center; }
+            .hero-icon { display: none; }
         }
 
-        footer { text-align: center; padding: 40px; background: #000; color: #555; border-top: 1px solid #333;}
+        /* --- بقية الأقسام --- */
+        .team-container { max-width: 1200px; margin: 0 auto; }
+        .team-category { margin-bottom: 60px; }
+        .category-header { color: var(--secondary-orange); border-bottom: 2px solid var(--primary-yellow); padding-bottom: 15px; margin-bottom: 30px; font-size: 1.5rem; font-weight: bold; display: flex; align-items: center; gap: 10px; }
+        .members-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+        .member-card { background: var(--bg-card); padding: 25px; border-radius: 12px; text-align: center; border: 1px solid #333; position: relative; overflow: hidden; transition: all 0.3s; }
+        .member-card:hover { transform: translateY(-10px); border-color: var(--primary-yellow); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .member-card h4 { color: #fff; margin-bottom: 8px; font-size: 1.2rem; }
+        .member-card small { color: var(--primary-yellow); font-size: 0.9rem; font-weight: bold; }
+
+        .timeline { max-width: 850px; margin: 0 auto; border-right: 4px solid var(--secondary-orange); padding-right: 30px; }
+        .timeline-item { background: #1a1a1a; padding: 25px; border-radius: 12px; margin-bottom: 40px; position: relative; border: 1px solid #333; }
+        .timeline-item::after { content: '★'; position: absolute; right: -44px; top: 20px; background: var(--bg-dark); border: 2px solid var(--primary-yellow); width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--primary-yellow); font-size: 0.8rem; z-index: 2; }
+        .timeline-item h3 { color: var(--primary-yellow); margin-bottom: 15px; font-size: 1.4rem; }
+        .timeline-item ul li { margin-bottom: 10px; list-style: none; padding-right: 20px; position: relative; color: #ddd; }
+        .timeline-item ul li::before { content: '➤'; color: var(--secondary-orange); position: absolute; right: 0; font-size: 0.8rem; top: 4px; }
+
+        /* ديسكورد */
+        #discord-section { perspective: 1000px; display: flex; justify-content: center; padding-bottom: 100px; }
+        .discord-card { width: 100%; max-width: 800px; background: linear-gradient(135deg, #1e1e1e, #141414); border-radius: 20px; padding: 50px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 20px 50px rgba(0,0,0,0.5); border: 1px solid rgba(255, 235, 59, 0.1); }
+        .discord-content { z-index: 2; flex: 1; }
+        .discord-title { font-size: 2.2rem; font-weight: 900; color: #fff; margin-bottom: 10px; display: flex; align-items: center; gap: 15px; }
+        .discord-btn { display: inline-block; background: var(--discord-blue); color: #fff; padding: 15px 35px; border-radius: 12px; text-decoration: none; font-weight: 900; font-size: 1.1rem; transition: all 0.3s; margin-top: 20px; }
+        .discord-btn:hover { background: var(--discord-dark); transform: scale(1.05); }
+        .discord-float-icon { font-size: 10rem; color: rgba(88, 101, 242, 0.08); position: absolute; right: -20px; bottom: -30px; transform: rotate(-20deg); }
+        @media (max-width: 768px) { .discord-card { flex-direction: column; text-align: center; } .discord-float-icon { display: none; } }
+
+        footer { text-align: center; padding: 40px; background: #080808; color: #555; border-top: 1px solid #222; margin-top: 50px; }
     </style>
 </head>
 <body>
 
     <div class="cursor"></div>
-    <div class="particles" id="particles"></div>
 
     <header>
-        <div class="logo">اندرتيل الصفراء المعربة</div>
+        <div class="logo"> <i class="fas fa-star" style="color:var(--primary-yellow)"></i> اندرتيل الصفراء</div>
         <nav>
             <ul>
                 <li><a href="#home">الرئيسية</a></li>
-                <li><a href="#downloads">روابط التحميل</a></li>
+                <li><a href="#downloads">التحميل</a></li>
                 <li><a href="#team">المساهمون</a></li>
-                <li><a href="#info">التغييرات</a></li>
+                <li><a href="#discord-section">المجتمع</a></li>
             </ul>
         </nav>
     </header>
 
     <section id="home">
+        <div class="bg-image"></div>
+        <div class="crt-overlay"></div>
+        
+        <div class="bg-battle-btns">
+            <div class="floating-action" style="top: 20%; left: 10%;">FIGHT</div>
+            <div class="floating-action" style="top: 70%; left: 15%; animation-delay: 1s;">ACT</div>
+            <div class="floating-action" style="top: 30%; right: 10%; animation-delay: 2s;">ITEM</div>
+            <div class="floating-action" style="top: 80%; right: 15%; animation-delay: 3s;">MERCY</div>
+        </div>
+
         <div class="hero-content">
-            <h1 class="glitch-title">اندرتيل الصفراء المعربة</h1>
-            <p class="static-text">العدالة تنتظر... هل لديك العزيمة لإنهاء القصة؟</p>
-            <a href="#downloads" class="btn-pulse">تحميل التحديث (v1.3)</a>
+            <div class="soul-container">
+                <div class="soul-waves"></div>
+                <i class="fas fa-heart soul-icon"></i>
+            </div>
+            
+            <div class="glitch-wrapper">
+                <i class="fas fa-hat-cowboy hero-icon"></i>
+                <h1 class="glitch-title" data-text="اندرتيل الصفراء">اندرتيل الصفراء</h1>
+                <i class="fas fa-gun hero-icon" style="animation-direction: reverse;"></i>
+            </div>
+            
+            <div class="typewriter-box">
+                <p class="static-text">العدالة تنتظر... الإصدار v1.3 متوفر الآن!</p>
+            </div>
+
+            <div class="hero-btns">
+                <a href="#downloads" class="main-btn btn-download">
+                    روابط التحميل <span class="btn-heart">❤</span>
+                </a>
+                <a href="#info" class="main-btn btn-secondary">
+                    التفاصيل <i class="fas fa-scroll" style="margin-right: 8px;"></i>
+                </a>
+            </div>
         </div>
     </section>
 
     <section id="downloads">
-        <h2 class="section-title">روابط التحميل المباشرة</h2>
-        <div class="download-container" style="max-width: 900px; margin: 0 auto;">
+        <h2 class="section-title">اختر منصتك</h2>
+        
+        <div class="download-grid">
             
-            <div class="download-platform">
-                <h3>🖥️ الكمبيوتر (PC) - نسخة الويندوز الكاملة</h3>
-                <p style="color: #ccc; margin-bottom: 15px;">النسخة الأحدث والأكثر استقراراً للأجهزة المكتبية (64-bit).</p>
-                <div class="download-buttons">
-                    <a href="https://www.mediafire.com/file/xgtzhd5dcgnqaiw/%25D8%25AA%25D8%25B9%25D8%25B1%25D9%258A%25D8%25A8_%25D8%25A7%25D9%2586%25D8%25AF%25D8%25B1%25D8%25AA%25D9%258A%25D9%2584_%25D9%258A%25D9%2584%25D9%2588__%25D8%25A8%25D9%258A_%25D8%25B3%25D9%258A__1.0.rar/file" class="primary">تحميل مباشر (الرئيسي)</a>
+            <div class="download-card">
+                <i class="fas fa-desktop platform-icon pc-icon"></i>
+                <h3 class="dl-card-title">نسخة الكمبيوتر (PC)</h3>
+                <div class="dl-list">
+                    <a href="https://www.mediafire.com/file/xgtzhd5dcgnqaiw/%25D8%25AA%25D8%25B9%25D8%25B1%25D9%258A%25D8%25A8_%25D8%25A7%25D9%2586%25D8%25AF%25D8%25B1%25D8%25AA%25D9%258A%25D9%2584_%25D9%258A%25D9%2584%25D9%2588__%25D8%25A8%25D9%258A_%25D8%25B3%25D9%258A__1.0.rar/file" target="_blank" class="dl-link-btn">
+                        <span><i class="fas fa-download"></i> تحميل اللعبة</span>
+                        <span class="dl-tag">RAR</span>
+                    </a>
                 </div>
             </div>
 
-            <div class="download-platform">
-                <h3>📱 أندرويد (Mobile) - الأجهزة الحديثة</h3>
-                <p style="color: #ccc; margin-bottom: 15px;">للأجهزة التي تعمل بنظام 64-bit، توفر أفضل أداء وموسيقى كاملة.</p>
-                <div class="download-buttons">
-                    <a href="https://www.mediafire.com/file/0rl4tod72ecnojl/%25D8%25AA%25D8%25B9%25D8%25B1%25D9%258A%25D8%25A8_%25DD8%25A7%25D9%2586%25D8%25AF%25D8%25B1%25D8%25AA%25D9%258A%25D9%2584_%25D9%258A%25D9%2584%25D9%2588__%25D8%25A7%25D9%2584%25D8%25AC%25D9%2588%25D8%25A7%25D9%2584.zip/file">النسخة الكاملة (64-bit)</a>
-                    <a href="https://www.mediafire.com/file/c29xwyqbgmtgzgk/%25D8%25AA%25D8%25B9%25D8%25B1%25D9%258A%25D8%25A8_%25D8%25A7%25D9%2586%25D8%25AF%25D8%25B1%25D8%25AA%25D9%258A%25D9%2584_%25D9%258A%25D9%2584%25D9%2588__%25D8%25A7%25D9%2584%25D8%25AC%25D9%2588%25D8%25A7%25D9%2584_32_%25D8%25A8%25D8%25AB.zip/file" class="secondary">نسخة بدون موسيقى (64-bit)</a>
+            <div class="download-card">
+                <i class="fab fa-android platform-icon android-icon"></i>
+                <h3 class="dl-card-title">نسخة الجوال (Mobile)</h3>
+                <div class="dl-list">
+                    <a href="https://www.mediafire.com/file/0rl4tod72ecnojl/%25D8%25AA%25D8%25B9%25D8%25B1%25D9%258A%25D8%25A8_%25D8%25A7%25D9%2586%25D8%25AF%25D8%25B1%25D8%25AA%25D9%258A%25D9%2584_%25D9%258A%25D9%2584%25D9%2588__%25D8%25A7%25D9%2584%25D8%25AC%25D9%2588%25D8%25A7%25D9%2584.zip/file" target="_blank" class="dl-link-btn">
+                        <span><i class="fas fa-mobile-alt"></i> النسخة الأساسية</span>
+                    </a>
+                    
+                    <a href="https://www.mediafire.com/file/c29xwyqbgmtgzgk/%25D8%25AA%25D8%25B9%25D8%25B1%25D9%258A%25D8%25A8_%25D8%25A7%25D9%2586%25D8%25AF%25D8%25B1%25D8%25AA%25D9%258A%25D9%2584_%25D9%258A%25D9%2584%25D9%2588__%25D8%25A7%25D9%2584%25D8%25AC%25D9%2588%25D8%25A7%25D9%2584_%25D8%25A8%25D8%25AF%25D9%2588%25D9%2586_%25D9%2585%25D9%2588%25D8%25B3%25D9%258A%25D9%2582%25D9%2589.zip/file" target="_blank" class="dl-link-btn">
+                        <span><i class="fas fa-volume-mute"></i> بدون موسيقى</span>
+                        <span class="dl-tag">خفيفة</span>
+                    </a>
                 </div>
             </div>
 
-            <div class="download-platform">
-                <h3>⚙️ أجهزة أندرويد قديمة (32-bit)</h3>
-                <p style="color: #ccc; margin-bottom: 15px;">للأجهزة الضعيفة أو القديمة التي تستخدم معالجات 32-bit.</p>
-                <div class="download-buttons">
-                    <a href="https://www.mediafire.com/file/g2bh53p1ppmje0z/%25D8%25AA%25D8%25B9%25D8%25B1%25D9%258A%25D8%25A8_%25D8%25A7%25D9%2586%25D8%25AF%25D8%25B1%25D8%25AA%25D9%258A%25D9%2584_%25D9%258A%25D9%2584%25D9%2588__%25D8%25A7%25D9%2584%25D8%25AC%25D9%2588%25D8%25A7%25D9%2584_32_%25D8%25A8%25D8%25AB.zip/file">النسخة الكاملة (32-bit)</a>
-                    <a href="https://www.mediafire.com/file/3so56i91jftsknz/%25D8%25AA%25D8%25B9%25D8%25B1%25D9%258A%25D8%25A8_%25D8%25A7%25D9%2586%25D8%25AF%25D8%25B1%25D8%25AA%25D9%258A%25D9%2584_%25D9%258A%25D9%2584%25D9%2588__%25D8%25A7%25D9%2584%25D8%25AC%25D9%2588%25D8%25A7%25D9%2584_32_%25D8%25A8%25D8%25AB_%25D8%25A8%25D8%25AF%25D9%2588%25D9%2586_%25D9%2585%25D9%2588%25D8%25B3%25D9%258A%25D9%2582%25D9%2589.zip/file" class="secondary">نسخة بدون موسيقى (32-bit)</a>
+            <div class="download-card">
+                <i class="fas fa-microchip platform-icon bit32-icon"></i>
+                <h3 class="dl-card-title">نسخ 32-bit (للأجهزة القديمة)</h3>
+                <div class="dl-list">
+                    <a href="https://www.mediafire.com/file/g2bh53p1ppmje0z/%25D8%25AA%25D8%25B9%25D8%25B1%25D9%258A%25D8%25A8_%25D8%25A7%25D9%2586%25D8%25AF%25D8%25B1%25D8%25AA%25D9%258A%25D9%2584_%25D9%258A%25D9%2584%25D9%2588__%25D8%25A7%25D9%2584%25D8%25AC%25D9%2588%25D8%25A7%25D9%2584_32_%25D8%25A8%25D8%25AB.zip/file" target="_blank" class="dl-link-btn">
+                        <span><i class="fas fa-cog"></i> 32-bit (كاملة)</span>
+                    </a>
+
+                    <a href="https://www.mediafire.com/file/3so56i91jftsknz/%25D8%25AA%25D8%25B9%25D8%25B1%25D9%258A%25D8%25A8_%25D8%25A7%25D9%2586%25D8%25AF%25D8%25B1%25D8%25AA%25D9%258A%25D9%2584_%25D9%258A%25D9%2584%25D9%2588__%25D8%25A7%25D9%2584%25D8%25AC%25D9%2588%25D8%25A7%25D9%2584_32_%25D8%25A8%25D8%25AB_%25D8%25A8%25D8%25AF%25D9%2588%25D9%2586_%25D9%2585%25D9%2588%25D8%25B3%25D9%258A%25D9%2582%25D9%2589.zip/file" target="_blank" class="dl-link-btn">
+                        <span><i class="fas fa-volume-mute"></i> 32-bit (بدون موسيقى)</span>
+                    </a>
                 </div>
             </div>
 
         </div>
     </section>
 
+    <section id="info">
+        <h2 class="section-title">سجل التغييرات</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <h3>✨ الإصدار الأخير v1.3</h3>
+                <ul>
+                    <li>تحديث نصوص الحوارات وتصحيح الأخطاء الكتابية.</li>
+                    <li>معالجة مشكلة خروج النصوص من مربعات الحوار.</li>
+                    <li>تحسين أسماء الوحوش الجانبية بطابع عربي ملائم لجو اللعبة.</li>
+                </ul>
+            </div>
+            <div class="timeline-item" style="opacity: 0.6;">
+                <h3>⚙️ الإصدارات السابقة</h3>
+                <ul>
+                    <li>إصلاح مشاكل تقنية في قتال فلاوي وآكسيس.</li>
+                    <li>تعديل الميني جيم ليتناسب مع أجهزة الجوال.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
     <section id="team">
-        <h2 class="section-title">فريق العمل الأسطوري (المساهمون)</h2>
+        <h2 class="section-title">فريق العمل</h2>
         <div class="team-container">
-            
             <div class="team-category">
-                <h3 class="category-header">💻 المبرمجون والمهندسون</h3>
+                <h3 class="category-header"><i class="fas fa-code"></i> البرمجة والمهندسون</h3>
                 <div class="members-grid">
-                    <div class="member-card">
-                        <h4>shaodoxr2</h4>
-                        <small>قائد الفريق والمطور الرئيسي</small>
-                    </div>
-                    <div class="member-card">
-                        <h4>riitz11</h4>
-                        <small>10 آلاف تعديل برمجي</small>
-                    </div>
+                    <div class="member-card"><h4>shaodoxr2</h4><small>قائد الفريق والمطور الرئيسي</small></div>
+                    <div class="member-card"><h4>riitz11</h4><small>10,000 تعديل برمجي</small></div>
                 </div>
             </div>
-            
+
             <div class="team-category">
-                <h3 class="category-header">📝 المترجمون الرئيسيون</h3>
+                <h3 class="category-header"><i class="fas fa-language"></i> المترجمون</h3>
                 <div class="members-grid">
                     <div class="member-card"><h4>zhahaha15</h4><small>4600 سطر</small></div>
                     <div class="member-card"><h4>shaodoxr2</h4><small>4000 سطر</small></div>
@@ -265,88 +387,63 @@
                     <div class="member-card"><h4>who</h4><small>500 سطر</small></div>
                 </div>
             </div>
-            
-            <div class="team-category">
-                <h3 class="category-header">🔍 المدققون والمراجعون</h3>
-                <div class="members-grid">
-                    <div class="member-card"><h4>shaodoxr2</h4><small>مراجعة شاملة</small></div>
-                    <div class="member-card"><h4>Rayane907</h4><small>مراجعة شاملة</small></div>
-                    <div class="member-card"><h4>riitz11</h4><small>مراجعة شاملة</small></div>
-                    <div class="member-card"><h4>whatever_lz</h4></div>
-                    <div class="member-card"><h4>muslim_mx</h4></div>
-                </div>
-            </div>
-            
-            <div class="team-category">
-                <h3 class="category-header">🎨 المصممون والفنانون</h3>
-                <div class="members-grid">
-                    <div class="member-card"><h4>فارس</h4><small>84 صورة مُعدَّلة</small></div>
-                    <div class="member-card"><h4>سنايبر</h4><small>14 صورة مُعدَّلة</small></div>
-                    <div class="member-card"><h4>المُعلن</h4><small>4 صور مُعدَّلة</small></div>
-                    <div class="member-card"><h4>8.1n</h4><small>صورتين مُعدَّلتين</small></div>
-                    <div class="member-card"><h4>ركان</h4><small>صورة مُعدَّلة</small></div>
-                </div>
-            </div>
 
+            <div class="team-category">
+                <h3 class="category-header"><i class="fas fa-paint-brush"></i> المصممون والفنانون</h3>
+                <div class="members-grid">
+                    <div class="member-card"><h4>فارس</h4><small>84 صورة معدلة</small></div>
+                    <div class="member-card"><h4>سنايبر</h4><small>14 صورة معدلة</small></div>
+                    <div class="member-card"><h4>المُعلن</h4><small>4 صور معدلة</small></div>
+                    <div class="member-card"><h4>8.1n</h4><small>صورتين معدلة</small></div>
+                    <div class="member-card"><h4>ركان</h4><small>صورة معدلة</small></div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <section id="info">
-        <h2 class="section-title">سجل التغييرات الكامل (الخط الزمني)</h2>
-        <div class="timeline">
-            
-            <div class="timeline-item">
-                <h3>✨ التحديث الأخير (v1.3)</h3>
-                <p style="color: var(--secondary-orange); font-size: 0.9rem;">تاريخ الإصدار: 20/07/2025</p>
-                <ul>
-                    <li class="fix">تصحيح الأخطاء الإملائية في نصوص الحوارات ومعالجة خروج النصوص من المربعات.</li>
-                    <li class="feature">تعريب أسماء الوحوش الجانبية لتناسب الطابع العربي وتحافظ على جو اللعبة.</li>
-                </ul>
+    <section id="discord-section">
+        <div class="discord-card" id="discordCard">
+            <i class="fab fa-discord discord-float-icon"></i>
+            <div class="discord-content">
+                <div class="online-badge">
+                    <span class="online-dot"></span> متصلون الآن
+                </div>
+                <h2 class="discord-title">
+                    <i class="fab fa-discord"></i> مجتمع أندرتيل
+                </h2>
+                <p class="discord-text">
+                    هل واجهت مشكلة؟ أو تريد مناقشة نظريات اللعبة؟
+                    <br>انضم إلينا في سيرفر الديسكورد الرسمي للحصول على الدعم والمشاركة.
+                </p>
+                <a href="https://discord.gg/DjfmqhUtnq" target="_blank" class="discord-btn">
+                    انضم للسيرفر الآن <i class="fas fa-arrow-left" style="margin-right: 8px;"></i>
+                </a>
             </div>
-
-            <div class="timeline-item">
-                <h3>⚙️ التحديث السابق (v1.2)</h3>
-                <p style="color: var(--secondary-orange); font-size: 0.9rem;">تاريخ الإصدار: 01/05/2025</p>
-                <ul>
-                    <li class="fix">إصلاح أخطاء الخروج المفاجئ في حوار آكسيس.</li>
-                    <li class="fix">إصلاح أخطاء حوار تشوجين.</li>
-                    <li class="fix">حل مشاكل تقنية في قتال فلاوي.</li>
-                    <li class="general">تعديل مرحلة الميني جيم (المزج) لتصبح أسهل على الجوال.</li>
-                </ul>
-            </div>
-            
         </div>
     </section>
 
     <footer>
-        <p>© 2025 فريق أندرتيل الصفراء المعربة</p>
-        <a href="https://discord.gg/DjfmqhUtnq" style="color: var(--primary-yellow); text-decoration: none;">انضم لسيرفر الديسكورد للتواصل</a>
+        <p>© 2025 فريق تعريب اندرتيل الصفراء</p>
     </footer>
 
     <script>
-        // 1. الكرسر المخصص (Heart Cursor)
+        // 1. حركة الماوس المخصص
         const cursor = document.querySelector('.cursor');
-        const interactiveElements = document.querySelectorAll('a, button, .download-buttons a, .member-card, .btn-pulse, nav a'); 
-
-        document.addEventListener('mousemove', (e) => {
+        
+        window.addEventListener('mousemove', (e) => {
+            // التحقق من عرض الشاشة لتعطيل الماوس المخصص على الجوال
             if (window.innerWidth > 768) {
-                requestAnimationFrame(() => {
-                    cursor.style.left = e.pageX + 'px';
-                    cursor.style.top = e.pageY + 'px';
-                });
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
             }
         });
 
-        interactiveElements.forEach(el => {
-            el.addEventListener('mouseenter', () => { if (window.innerWidth > 768) cursor.classList.add('hovered'); });
-            el.addEventListener('mouseleave', () => { if (window.innerWidth > 768) cursor.classList.remove('hovered'); });
+        // تأثير عند المرور فوق العناصر القابلة للنقر
+        const clickables = document.querySelectorAll('a, button, .member-card');
+        clickables.forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
         });
-
-        // 2. توليد النجوم في الخلفية
-        const particlesContainer = document.getElementById('particles');
-        const particleCount = 40; 
-
-        for (let j = 0; j < particleCount; j++) {
-            const particle = document.createElement('div');
-            particle.classList.add('particle');
-     
+    </script>
+</body>
+</html>
